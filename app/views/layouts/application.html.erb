@@ -7,8 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= link_to "Home", root_url %> -
+<% if @user %>
+    <%= link_to "Logout", @application_session, :method => :delete %>
+<% else %>
+    <%= link_to "Login", new_session_path %>
+<% end %>
+
+<%= "- Message: #{flash[:notice]}" if flash[:notice] %>
+
+<hr />
 
 <%= yield %>
-
 </body>
 </html>
