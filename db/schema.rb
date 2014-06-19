@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(:version => 20140619204845) do
     t.datetime "updated_at",  :null => false
     t.string   "card_type"
     t.string   "mingle_id"
+    t.integer  "project_id"
+    t.string   "estimation"
+  end
+
+  create_table "estimation_details", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "estimate"
+    t.integer  "number"
+    t.integer  "card_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "estimation_details", :force => true do |t|
