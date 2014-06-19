@@ -10,26 +10,14 @@
     </thead>
 
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal">
-      <td>1</td>
-      <td>John</td>
-      <td>Carter</td>
-      <td>johncarter@mail.com</td>
-    </tr>
-
-    <tr data-toggle="modal" data-target="#myModal">
-      <td>2</td>
-      <td>Peter</td>
-      <td>Parker</td>
-      <td>peterparker@mail.com</td>
-    </tr>
-
-    <tr data-toggle="modal" data-target="#myModal">
-      <td>3</td>
-      <td>John</td>
-      <td>Rambo</td>
-      <td>johnrambo@mail.com</td>
-    </tr>
+      <%@db_cards.each do |card| %>
+        <tr data-toggle="modal" data-target="#myModal">
+        <td><%= card.number %></td>
+          <td><%= card.url %></td>
+          <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
+          <td><%= card.estimate %></td>
+        </tr>
+    <% end %>
     </tbody>
   </table>
 </div>

@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
         card.url   = a.attributes[:name]
         card.description = a.attributes[:description]
         card.user_id     = @user.id
-        card.save!
+        card.save
       end
     end
     redirect_to list_cards_projects_path
