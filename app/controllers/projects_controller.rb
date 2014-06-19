@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_project_name
-  	@is_admin = true
     @project = Project.where(:mingle_name => params["project"]["name"]).first_or_create    
     @db_cards = Card.where(:project_id=> @project.id)  
     LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).update_user
