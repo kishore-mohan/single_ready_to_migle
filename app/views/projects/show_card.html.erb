@@ -12,21 +12,15 @@
   <script type="text/javascript" src="/assets/modernizr.custom.79639.js"></script>
 </head>
 <body>
-
-<h3><%= "Showing Card Details" %></h3>
 <div class="table-responsive">
   <div>
   <%= simple_form_for(@show_card,:url => project_path(:id => @show_card.id)) do |f| %>
-      <p>
-        <b>Number:</b>
-        <%= @show_card.number %>
-      </p>
-      <p>
-        <b>Name:</b>
-        <%= @show_card.url %>
-      </p>
-      <p>
-        <b>Description:</b>
+      <p> 
+        <div class="page-header" style="border-bottom: 1px solid rgb(238, 238, 238);">
+           <h3 style="color: rgb(51, 51, 51);"> <%= "#"+@show_card.number.to_s+" - " +@show_card.url %></h3>
+        </div>       
+      </p>    
+      <p>    
         <%= raw @show_card.description.gsub("<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n","").gsub("<h2>","<h4>") %>
       </p>
         </div>

@@ -3,6 +3,8 @@ class Card < ActiveRecord::Base
   belongs_to :user
   belongs_to :card
   belongs_to :project
-  validates_uniqueness_of :number
+
+  validates_uniqueness_of :number, :scope => :project_id
+
   has_many :estimation_details
 end
