@@ -1,11 +1,12 @@
 <%if @is_admin %>
   <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
-  <%=button_tag "Pull Cards", id: "pull_cards" if @db_cards.blank?%>
+  <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" if @db_cards.blank?%>
   <%= render :partial => "merge_cards" unless @db_cards.blank? %>
 <div id = "past_cards"></div>
 <%else%>
   <%= render :partial => "merge_cards" %>
 <%end%>
+
 
 <% if @user.is_admin? %>
 <%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
