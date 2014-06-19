@@ -1,79 +1,17 @@
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Card Number</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Estimate</th>
-    </tr>
-    </thead>
+<%if @is_admin %>
+  <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
+  <%=button_tag "Pull Cards", id: "pull_cards" if @db_cards.blank?%>
+  <%= render :partial => "merge_cards" unless @db_cards.blank? %>
+<div id = "past_cards"></div>
+<%else%>
+  <%= render :partial => "merge_cards" %>
+<%end%>
+<script>
+$('#pull_cards').click(function() {   
+  $.ajax({
+    url: "/projects/pull_cards",
+    data: {project_name :'<%=params[:project][:name]%>'}
+  });
+});
+</script>
 
-    <tbody>
-      <%@db_cards.each do |card| %>
-        <tr data-toggle="modal" data-target="#myModal">
-          <td><%= card.number %></td>
-          <td><%= truncate(card.url,:length=>25) %></td>
-          <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
-          <td><%= card.estimate %></td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th>Card Number</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Estimate</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-              <td>1</td>
-              <td  data-target="#myModal" data-toggle="modal" >John</td>
-              <td>Carter</td>
-              <td>johncarter@mail.com</td>
-            </tr>
-
-            <tr>
-              <td>2</td>
-              <td>Peter</td>
-              <td>Parker</td>
-              <td>peterparker@mail.com</td>
-            </tr>
-
-            <tr>
-              <td>3</td>
-              <td>John</td>
-              <td>Rambo</td>
-              <td>johnrambo@mail.com</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<%#= @cards.inspect %>

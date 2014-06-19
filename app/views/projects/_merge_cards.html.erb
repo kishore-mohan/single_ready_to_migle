@@ -1,0 +1,23 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Card Number</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Estimate</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <%@db_cards.each do |card| %>
+        <tr data-toggle="modal" data-target="#myModal">
+          <td><%= card.number %></td>
+          <td><%= truncate(card.url,:length=>25) %></td>
+          <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
+          <td><%= card.estimate %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

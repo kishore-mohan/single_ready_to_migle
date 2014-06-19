@@ -9,8 +9,15 @@ class ProjectsController < ApplicationController
   end
 
   def set_project_name
-    @cards = LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).get_cards
+  	@is_admin = true
+    @project = Project.where(:mingle_name => params["project"]["name"]).first_or_create    
+    @db_cards = Card.where(:project_id=> @project.id)   
+    render 'list_cards'
+  end
 
+  def pull_cards
+ 	@cards = LetsMingle.new(@user.email_id, @user.password, params["project_name"] ).get_cards
+    project = Project.where(:mingle_name => params["project_name"]).first_or_create 
     unless @cards.blank?
       @cards.each do|a|
         card = Card.new
@@ -20,14 +27,14 @@ class ProjectsController < ApplicationController
         card.card_type = a[:type]
         card.mingle_id = a[:id]
         card.user_id = @user.id
+        card.project_id = project.id
         card.save
       end
-    end
-    redirect_to list_cards_projects_path
+    @db_cards = Card.where(:project_id=> project.id)
+    end  
+    respond_to(:js) 
   end
 
   def list_cards
-    @db_cards = Card.all
-
   end
 end

@@ -19,6 +19,10 @@ class LetsMingle
       email, password, project)  
   end
 
+  def project_users
+    project_login.users.find{|u| u.admin == true && u.user.email == email}
+  end
+
   def get_cards
   	project_login.execute_mql('SELECT number, name, description,type WHERE "Delivery Status" = Ready AND Estimate is null') 
   end
