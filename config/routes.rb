@@ -14,8 +14,10 @@ MingleEstimation::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  resources :projects
+  resources :projects 
   resources :sessions
+
+  match '/projects/set_project_name', :to=> 'projects#set_project_name'
   # Sample resource route with options:
   #   resources :products do
   #     member do

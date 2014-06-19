@@ -31,8 +31,7 @@ class Session < ActiveRecord::Base
   end
 
   def mingle_user
-    Mingle4r::MingleClient.new('https://careerbuilder.mingle.thoughtworks.com/',
-                               self.email, self.password)
+    LetsMingle.new(self.email, self.password).login
   end
 
   def associate_session_to_user
