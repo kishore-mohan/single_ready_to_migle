@@ -10,7 +10,7 @@
     </thead>
 
     <tbody>
-      <%@dbzz_cards.each do |card| %>
+      <%@db_cards.each do |card| %>
         <tr>
           <td><%= card.number %></td>
           <td><%= truncate(card.url,:length=>25) %></td>
