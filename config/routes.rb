@@ -19,6 +19,7 @@ MingleEstimation::Application.routes.draw do
     get 'pull_cards',:on => :collection
     get 'show_card', :on => :collection
     get 'send_email',:on => :collection
+    delete 'destroy_card',:on => :collection
   end
   resources :sessions
 

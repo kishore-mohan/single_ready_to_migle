@@ -73,4 +73,11 @@ class ProjectsController < ApplicationController
      @cards = EstimationDetail.where(params[:number])
     #raise @cards.inspect
   end
+  
+  def destroy_card
+    @card = Card.find(params[:id])
+    @card.destroy
+    respond_to(:js) 
+  end
+  
 end
