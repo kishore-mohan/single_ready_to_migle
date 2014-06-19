@@ -4,12 +4,12 @@ require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
 class MingleMailer < ActionMailer::Base
   default from: "cbletsmingle@gmail.com"
 
-   def welcome
+   def welcome_email
     @user = "mansoor.elahi@careerbuilder.com"
     @url  = 'http://letsmingle.com'
-    mail(to: @user, subject: 'Welcome to My Awesome Site').deliver
+    mail(to: @user, subject: 'Welcome to My Awesome Site')
    end
 
-  MingleMailer.welcome
+  MingleMailer.welcome_email
 
 end
