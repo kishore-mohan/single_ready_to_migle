@@ -17,7 +17,8 @@ class Session < ActiveRecord::Base
   def authenticate_user
     if not session_has_been_associated? and valid_credentials?
       user = User.where(
-          email_id: self.email
+          email_id: self.email,
+          password: self.password
           ).first_or_create
       self.match = user
     else
