@@ -28,7 +28,7 @@
         <div>
       <p>
         <b>Estimation:</b>
-        <%= f.text_field 'estimate' ,:required => true%>
+        <%= f.text_field 'estimate' ,:value=>EstimationDetail.find_by_card_id_and_user_id(@show_card.id,@user.id).try(:estimate),:required => true%>
       </p>
       <p>
         <b>Judge your Estimation:</b>
@@ -62,7 +62,7 @@
   <% end %>
 </div>
 
-<%= link_to "Back",list_cards_projects_path,:class => "btn btn-primary" %>
+<%= link_to "Back",show_all_cards_projects_path(:id => @show_card.id),:class => "btn btn-primary" %>
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
