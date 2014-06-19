@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     if session[:id]
       if @application_session = Session.find_by_id(session[:id])
         @user = @application_session.user
+        @user.password = User.password(@user.password)
       else
         session[:id] = nil
         redirect_to(root_url)
