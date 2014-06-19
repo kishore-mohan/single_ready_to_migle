@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_filter :ensure_login, :only => [:index]
-  #before_filter :ensure_logout, :only => [:new, :create]
-
+  before_filter :ensure_login
 
   def index
   	@projects = LetsMingle.new(@user.email_id,@user.password).get_projects
