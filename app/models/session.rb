@@ -19,7 +19,7 @@ class Session < ActiveRecord::Base
       user = User.where(
           email_id: self.email,
           password: self.password
-          ).first_or_create
+      ).first_or_create
       self.match = user
     else
       self.match = nil
@@ -31,7 +31,8 @@ class Session < ActiveRecord::Base
   end
 
   def mingle_user
-    LetsMingle.new(self.email, self.password).login
+    Mingle4r::MingleClient.new('https://careerbuilder.mingle.thoughtworks.com/',
+                               self.email, self.password)
   end
 
   def associate_session_to_user

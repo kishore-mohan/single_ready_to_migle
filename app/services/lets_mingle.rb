@@ -4,7 +4,7 @@ class LetsMingle
 
   def initialize(email, password, project=nil)
     @email = email
-    @password = password
+    @password = User.password(password)
     @project = project
     @url = "https://careerbuilder.mingle.thoughtworks.com/"
   end
