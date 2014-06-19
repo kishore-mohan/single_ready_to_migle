@@ -28,7 +28,7 @@
         <div>
       <p>
         <b>Estimation:</b>
-        <%= f.text_field 'estimate' ,:required => true%>
+        <%= f.text_field 'estimate' ,:value=>EstimationDetail.find_by_card_id_and_user_id(@show_card.id,@user.id).try(:estimate),:required => true%>
       </p>
       <p>
         <b>Judge your Estimation:</b>
