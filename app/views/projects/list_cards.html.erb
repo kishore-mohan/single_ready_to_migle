@@ -1,3 +1,25 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Card Number</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <%@db_cards.each do |card| %>
+        <tr>
+          <td><%= link_to card.number,show_card_projects_path(:id=>card.id), :class => "btn btn-primary" %></td>
+          <td><%= truncate(card.url,:length=>25) %></td>
+          <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
 <%if @is_admin %>
   <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
   <%=button_tag "Pull Cards", id: "pull_cards" if @db_cards.blank?%>
@@ -6,6 +28,7 @@
 <%else%>
   <%= render :partial => "merge_cards" %>
 <%end%>
+
 
 <% if @user.is_admin? %>
 <%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
