@@ -39,4 +39,12 @@ class ProjectsController < ApplicationController
     flash[:notice] = "Email Notification Sent"
     redirect_to list_cards_projects_path
   end
+
+  def show_card
+    @show_card = Card.find(params[:id])
+  end
+
+  def update
+       raise params.inspect
+  end
 end

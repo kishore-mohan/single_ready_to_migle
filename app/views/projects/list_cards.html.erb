@@ -12,7 +12,7 @@
     <tbody>
       <%@db_cards.each do |card| %>
         <tr>
-          <td><%= card.number %></td>
+          <td><%= link_to card.number,show_card_projects_path(:id=>card.id), :class => "btn btn-primary" %></td>
           <td><%= truncate(card.url,:length=>25) %></td>
           <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
           <td><%= card.estimate %></td>
@@ -21,7 +21,6 @@
     </tbody>
   </table>
 </div>
-
 
 <%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
     <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>

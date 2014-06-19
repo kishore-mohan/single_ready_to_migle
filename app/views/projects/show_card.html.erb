@@ -1,0 +1,31 @@
+<h3><%= "Showing Card Details" %></h3>
+<div class="table-responsive">
+    <%= simple_form_for(@show_card,:url => list_cards_projects_path) do |f| %>
+  <p>
+    <b>Number:</b>
+    <%= @show_card.number %>
+  </p>
+  <p>
+    <b>Name:</b>
+    <%= @show_card.url %>
+  </p>
+  <p>
+    <b>Description:</b>
+    <%= raw @show_card.description.gsub("<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n","").gsub("<h2>","<h4>") %>
+  </p>
+  <p>
+    <b>Estimation:</b>
+    <%= f.text_field 'estimate' %>
+  </p>
+  <p>
+    <b>Judge your Estimation:</b>
+    <%= text_area :comments, "",:cols => "15",:rows=>"4" %>
+  </p>
+    <p>
+      <%= f.submit :class=>"btn btn-danger" %>
+    </p>
+        <% end %>
+</div>
+
+
+<%= link_to "Back",list_cards_projects_path,:class => "btn btn-primary" %>
