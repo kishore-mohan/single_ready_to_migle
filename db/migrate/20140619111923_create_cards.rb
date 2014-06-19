@@ -3,7 +3,7 @@ class CreateCards < ActiveRecord::Migration
     create_table :cards do |t|
       t.integer :number
       t.text :description
-      t.text :ur
+      t.text :url
       t.integer :user_id
       t.integer :estimate
       t.text :comments
