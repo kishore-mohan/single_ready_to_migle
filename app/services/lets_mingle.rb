@@ -20,7 +20,7 @@ class LetsMingle
   end
 
   def get_cards
-    project_login.cards
+  	project_login.execute_mql('SELECT number, name, description,type WHERE "Delivery Status" = Ready AND Estimate is null') 
   end
   
   def get_projects

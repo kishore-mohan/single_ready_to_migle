@@ -14,10 +14,12 @@ class ProjectsController < ApplicationController
     unless @cards.blank?
       @cards.each do|a|
         card = Card.new
-        card.number = a.attributes[:number]
-        card.url   = a.attributes[:name]
-        card.description = a.attributes[:description]
-        card.user_id     = @user.id
+        card.number = a[:number]
+        card.url = a[:name]
+        card.description = a[:description]
+        card.card_type = a[:type]
+        card.mingle_id = a[:id]
+        card.user_id = @user.id
         card.save
       end
     end
