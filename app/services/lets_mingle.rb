@@ -9,6 +9,11 @@ class LetsMingle
     @url = "https://careerbuilder.mingle.thoughtworks.com/"
   end
 
+  def update_user
+    user = project_login.users.find{|u| u.user.email.downcase == email.downcase}
+    User.where(:email_id=>email).first.update_attributes(:is_admin => user.admin)
+  end
+
   def login
   	Mingle4r::MingleClient.new(url,
       email, password)    
@@ -28,7 +33,11 @@ class LetsMingle
   end
   
   def get_projects
-    login.projects.collect{|prj| [prj.name, prj.identifier]}
+    projects = login.projects.collect{|prj| [prj.name, prj.identifier]}
+    projects.each do |p|
+      Project.where(mingle_name: p.last).first_or_create
+    end
+    projects
   end 
 
   def get_users
