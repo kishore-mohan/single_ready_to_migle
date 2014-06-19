@@ -1,5 +1,5 @@
 <h1>Projects</h1>
 <%= simple_form_for Project.new, :url =>projects_set_project_name_path,:method => 'post' do |f| %>
   <%=f.input :name, collection: @projects, as: :radio_buttons,
-    input_html: { onclick:"document.getElementById('new_project').submit();" } %>  
+    input_html: { onclick:"document.getElementById('new_project').submit();" }, :label=> false %>  
 <%end%>
