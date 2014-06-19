@@ -17,6 +17,7 @@ MingleEstimation::Application.routes.draw do
   resources :projects do
     get 'list_cards',:on => :collection
     get 'show_card', :on => :collection
+    get 'send_email',:on => :collection
   end
   resources :sessions
 

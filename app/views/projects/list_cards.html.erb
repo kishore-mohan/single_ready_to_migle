@@ -22,3 +22,8 @@
   </table>
 </div>
 
+<%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
+    <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>
+    <%= f.input :url, :as => :hidden, :input_html => { :value => request.url} %>
+    <%= f.button :submit , 'Send Email Notification' %>
+<% end %>
