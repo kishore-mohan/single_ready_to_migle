@@ -45,6 +45,18 @@ class ProjectsController < ApplicationController
   end
 
   def update
-       raise params.inspect
+    @card = Card.find(params[:id])
+    if @card.update_attributes(params[:card])
+      flash[:notice] = "Card updated Successfully"
+      redirect_to project_path(:number => @card.number)
+    else
+      flash[:notice] = "Some Problem is there. Please review the details"
+       redirect_to show_card_projects_path
+    end
+  end
+
+  def show
+     @cards = Card.where(params[:number])
+    raise @cards.inspect
   end
 end

@@ -5,7 +5,6 @@
       <th>Card Number</th>
       <th>Name</th>
       <th>Description</th>
-      <th>Estimate</th>
     </tr>
     </thead>
 
@@ -15,7 +14,6 @@
           <td><%= link_to card.number,show_card_projects_path(:id=>card.id), :class => "btn btn-primary" %></td>
           <td><%= truncate(card.url,:length=>25) %></td>
           <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
-          <td><%= card.estimate %></td>
         </tr>
     <% end %>
     </tbody>
