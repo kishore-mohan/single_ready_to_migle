@@ -1,8 +1,8 @@
 .baraja-demo {
-	width: 200px;
-	margin: 30px auto;
+	width: 70%;
+	margin: 30px auto 0px 0px;
 	color: blue;
-    border-color: blue;
+  border-color: blue;
 }
 
 .no-js .baraja-demo {
@@ -20,7 +20,8 @@
 .baraja-demo p {
 	font-size: 12px;
 	font-weight: 700;
-	padding: 0 10px;
+	padding: 0px;
+	text-align: center;
 	margin: 10px 3px 0;
 }
 
