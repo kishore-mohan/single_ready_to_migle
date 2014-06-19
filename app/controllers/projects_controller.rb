@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
         card.save
       end
     @db_cards = Card.where(:project_id=> project.id)
-    end  
+    end
     respond_to(:js) 
   end
 
@@ -52,7 +52,14 @@ class ProjectsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
-    if @card.update_attributes(params[:card])
+    estimation_detail          = EstimationDetail.new
+    estimation_detail.user_id  = @user.id
+    estimation_detail.estimate = params[:card][:estimate]
+    estimation_detail.card_id  = @card.id
+    estimation_detail.number   = @card.number
+    estimation_detail.comments = params[:comments]
+    estimation_detail.save
+    if estimation_detail.save
       flash[:notice] = "Card updated Successfully"
       redirect_to project_path(:number => @card.number)
     else
@@ -62,7 +69,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-     @cards = Card.where(params[:number])
-    raise @cards.inspect
+     @cards = EstimationDetail.where(params[:number])
+    #raise @cards.inspect
   end
 end
