@@ -30,4 +30,12 @@ class ProjectsController < ApplicationController
     @db_cards = Card.all
 
   end
+
+  def show_card
+    @show_card = Card.find(params[:id])
+  end
+
+  def update
+       raise params.inspect
+  end
 end

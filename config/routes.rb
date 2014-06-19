@@ -16,6 +16,7 @@ MingleEstimation::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :projects do
     get 'list_cards',:on => :collection
+    get 'show_card', :on => :collection
   end
   resources :sessions
 
