@@ -6,12 +6,20 @@
 <%else%>
   <%= render :partial => "merge_cards" %>
 <%end%>
-<script>
-$('#pull_cards').click(function() {   
-  $.ajax({
-    url: "/projects/pull_cards",
-    data: {project_name :'<%=params[:project][:name]%>'}
-  });
-});
-</script>
 
+<% if @user.is_admin? %>
+<%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
+  <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>
+  <%= f.input :url, :as => :hidden, :input_html => { :value => request.url} %>
+   <%= f.button :submit , 'Send Email Notification' %>
+<% end %>
+<% end %>
+
+<script>
+    $('#pull_cards').click(function() {
+        $.ajax({
+            url: "/projects/pull_cards",
+            data: {project_name :'<%=params[:project][:name]%>'}
+        });
+    });
+</script>

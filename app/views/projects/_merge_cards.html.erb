@@ -10,9 +10,9 @@
     </thead>
 
     <tbody>
-      <%@db_cards.each do |card| %>
-        <tr data-toggle="modal" data-target="#myModal">
-          <td><%= card.number %></td>
+    <%@db_cards.each do |card| %>
+        <tr>
+          <td><%= link_to card.number,show_card_projects_path(:id=>card.id), :class => "btn btn-primary" %></td>
           <td><%= truncate(card.url,:length=>25) %></td>
           <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
           <td><%= card.estimate %></td>
@@ -21,3 +21,5 @@
     </tbody>
   </table>
 </div>
+
+

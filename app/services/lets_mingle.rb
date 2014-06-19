@@ -32,6 +32,7 @@ class LetsMingle
   end 
 
   def get_users
+    project_login.users.collect{|u| u.user.email}
   end
 
 end
