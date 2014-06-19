@@ -1,12 +1,9 @@
 <%if @user.is_admin %>
-  <%if @db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
-  <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary"%>
+  <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
+  <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" %>
   <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
-  <div id = "past_cards"></div>
-  <%else%>
-  <% @db_cards = Card.where(:project_id=> @project.id)%>
-  <%= render :partial => "user_estimation_cards" %>
-  <%end%>
+  <%= render :partial => "merge_cards" unless @db_cards.blank? %>
+<div id = "past_cards"></div>
 <%else%>
   <%= render :partial => "merge_cards" %>
 <%end%>
