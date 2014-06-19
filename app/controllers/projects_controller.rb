@@ -53,20 +53,32 @@ class ProjectsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
-    estimation_detail          = EstimationDetail.new
-    estimation_detail.user_id  = @user.id
-    estimation_detail.estimate = params[:card][:estimate]
-    estimation_detail.card_id  = @card.id
-    estimation_detail.number   = @card.number
-    estimation_detail.comments = params[:comments]
-    estimation_detail.save
-    if estimation_detail.save
-      flash[:notice] = "Card updated Successfully"
-      redirect_to project_path(:number => @card.number)
+    @estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
+    unless @estimation_detail.blank?
+      if @estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
+        flash[:notice] = "Estimation updated Successfully"
+        redirect_to projects_url
+      else
+        flash[:notice] = "Some Problem is there. Please review the details"
+        redirect_to show_card_projects_path
+      end
     else
-      flash[:notice] = "Some Problem is there. Please review the details"
-       redirect_to show_card_projects_path
+      estimation_detail          = EstimationDetail.new
+      estimation_detail.user_id  = @user.id
+      estimation_detail.estimate = params[:card][:estimate]
+      estimation_detail.card_id  = @card.id
+      estimation_detail.number   = @card.number
+      estimation_detail.comments = params[:comments]
+      estimation_detail.save
+      if estimation_detail.save
+        flash[:notice] = "Estimation updated Successfully"
+        redirect_to projects_url
+      else
+        flash[:notice] = "Some Problem is there. Please review the details"
+        redirect_to show_card_projects_path
+      end
     end
+
   end
 
   def show
