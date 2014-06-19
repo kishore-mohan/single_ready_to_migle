@@ -53,11 +53,11 @@ class ProjectsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
-    @estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
-    unless @estimation_detail.blank?
-      if @estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
+    estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
+    unless estimation_detail.blank?
+      if estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to projects_url
+        redirect_to show_all_cards_projects_path(:id=>params[:id])
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path
@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
       estimation_detail.save
       if estimation_detail.save
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to projects_url
+        redirect_to show_all_cards_projects_path(:id=>params[:id])
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path
@@ -91,5 +91,10 @@ class ProjectsController < ApplicationController
     @card.destroy
     respond_to(:js) 
   end
-  
+
+  def show_all_cards
+     card = Card.find(params[:id])
+     project = card.project
+    @db_cards = Card.where(:project_id=> project.id)
+  end
 end
