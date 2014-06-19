@@ -1,6 +1,7 @@
 <%if @is_admin %>
   <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
   <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" if @db_cards.blank?%>
+  <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
   <%= render :partial => "merge_cards" unless @db_cards.blank? %>
 <div id = "past_cards"></div>
 <%else%>
@@ -18,6 +19,7 @@
 
 <script>
     $('#pull_cards').click(function() {
+        $("#loader").show();
         $.ajax({
             url: "/projects/pull_cards",
             data: {project_name :'<%=params[:project][:name]%>'}
