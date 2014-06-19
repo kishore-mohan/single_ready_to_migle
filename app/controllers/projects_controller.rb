@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  include ActionView::Helpers::TextHelper
   before_filter :ensure_login, :only => [:index]
   #before_filter :ensure_logout, :only => [:new, :create]
 
@@ -9,10 +10,22 @@ class ProjectsController < ApplicationController
 
   def set_project_name
     @cards = LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).get_cards
-    render 'list_cards'
+
+    unless @cards.blank?
+      @cards.each do|a|
+        card = Card.new
+        card.number = a.attributes[:number]
+        card.url   = a.attributes[:name]
+        card.description = a.attributes[:description]
+        card.user_id     = @user.id
+        card.save!
+      end
+    end
+    redirect_to list_cards_projects_path
   end
 
   def list_cards
+    @db_cards = Card.all
 
   end
 end

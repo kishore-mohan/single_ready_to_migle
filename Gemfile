@@ -8,7 +8,7 @@ gem 'rails', '3.2.18'
 gem 'mysql2'
 gem 'simple_form'
 gem 'mingle4r'
-
+gem 'sanitize'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
