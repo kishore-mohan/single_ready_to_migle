@@ -53,4 +53,11 @@ class ProjectsController < ApplicationController
   def update
        raise params.inspect
   end
+  
+  def destroy_card
+    @card = Card.find(params[:id])
+    @card.destroy
+    respond_to(:js) 
+  end
+  
 end
