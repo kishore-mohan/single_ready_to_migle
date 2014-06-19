@@ -10,8 +10,8 @@
     </thead>
 
     <tbody>
-      <%@db_cards.each do |card| %>
-        <tr data-toggle="modal" data-target="#myModal">
+      <%@dbzz_cards.each do |card| %>
+        <tr>
           <td><%= card.number %></td>
           <td><%= truncate(card.url,:length=>25) %></td>
           <td><%= truncate(Sanitize.clean(card.description), :length=>50)  %></td>
@@ -22,58 +22,9 @@
   </table>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th>Card Number</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Estimate</th>
-            </tr>
-            </thead>
 
-            <tbody>
-            <tr>
-              <td>1</td>
-              <td  data-target="#myModal" data-toggle="modal" >John</td>
-              <td>Carter</td>
-              <td>johncarter@mail.com</td>
-            </tr>
-
-            <tr>
-              <td>2</td>
-              <td>Peter</td>
-              <td>Parker</td>
-              <td>peterparker@mail.com</td>
-            </tr>
-
-            <tr>
-              <td>3</td>
-              <td>John</td>
-              <td>Rambo</td>
-              <td>johnrambo@mail.com</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<%#= @cards.inspect %>
+<%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
+    <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>
+    <%= f.input :url, :as => :hidden, :input_html => { :value => request.url} %>
+    <%= f.button :submit , 'Send Email Notification' %>
+<% end %>
