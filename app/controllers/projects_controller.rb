@@ -9,7 +9,8 @@ class ProjectsController < ApplicationController
   def set_project_name
   	@is_admin = true
     @project = Project.where(:mingle_name => params["project"]["name"]).first_or_create    
-    @db_cards = Card.where(:project_id=> @project.id)   
+    @db_cards = Card.where(:project_id=> @project.id)  
+    LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).update_user
     render 'list_cards'
   end
 
@@ -84,4 +85,11 @@ class ProjectsController < ApplicationController
      @cards = EstimationDetail.where(params[:number])
     #raise @cards.inspect
   end
+  
+  def destroy_card
+    @card = Card.find(params[:id])
+    @card.destroy
+    respond_to(:js) 
+  end
+  
 end
