@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
     url     = params[:email_notify]["url"]
     MingleMailer.welcome_email(comment,url)
     flash[:notice] = "Email Notification Sent"
-    redirect_to list_cards_projects_path
+    redirect_to root_path
   end
 
   def show_card
