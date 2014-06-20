@@ -1,3 +1,4 @@
+<h3><%= "Listing All Users Estimations" %></h3>
 <div id = "remove_estimation_cards">
 <div class="table-responsive">
   <table class="table">
@@ -20,7 +21,11 @@
                 <%unless e.blank? %>
                   <td>
                     <%card_id = e.id%>
+<<<<<<< HEAD
                     <a id="popoverOption_<%=card_id%>" class="btn btn-primary"  data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
+=======
+                    <a id="popoverOption_<%=card_id%>" class="btn btn-success" href="/projects/show_card?id=<%=card.id%>" data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
+>>>>>>> 5b98efc9cf71cca367ae4943736072e9945ff871
                     </td>
                     <script>
                       $('#popoverOption_<%=e.id%>').popover({ trigger: "hover" });
