@@ -60,6 +60,12 @@ class ProjectsController < ApplicationController
   def update
     @card = Card.find(params[:id])
     estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
+    if @user.is_admin
+    m_c = LetsMingle.new(@user.email_id, @user.password, @card.project.mingle_name ).project_login
+    story_card =  m_c.project.find_card(@card.number) 
+    story_card.property_value('Estimate', params[:card][:estimate])
+    story_card.save
+    end
     unless estimation_detail.blank?
       if estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
         @card.update_attributes(:estimate => params[:card][:estimate]) if @user.is_admin
