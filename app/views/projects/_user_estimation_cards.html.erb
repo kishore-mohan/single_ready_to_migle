@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Card Number</th>
+      <%@est.pluck(:user_id).uniq.each do |e|%>
+      <th><%=User.find(e).email_id.gsub("@careerbuilder.com","")%></th>
+      <%end%>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%@est.each do |e| %>
+        <tr>
+          <td><%= link_to e.card_id,show_card_projects_path(:id=>e.card_id), :class => "btn btn-primary" %></td>
+              <%@est.pluck(:user_id).uniq.each do |es|%>
+                <%if es == e.user_id%>
+                  <td><%= link_to e.estimate,show_card_projects_path(:id=>e.card_id),
+                    :class => "btn btn-primary" %></td>
+                <%else%>
+                  <td></td>
+                <%end%>         
+              <%end%>          
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

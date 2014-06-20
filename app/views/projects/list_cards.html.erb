@@ -2,8 +2,11 @@
   <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
   <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" %>
   <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
+  <%=button_tag "List User Estimated Cards", id: "user_estimate_cards", :class => "btn btn-primary" %>
+  <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
   <%= render :partial => "merge_cards" unless @db_cards.blank? %>
 <div id = "past_cards"></div>
+<div id= "show_estimated_cards"></div>
 <%else%>
   <%= render :partial => "merge_cards" %>
 <%end%>
@@ -22,6 +25,14 @@
         $("#loader").show();
         $.ajax({
             url: "/projects/pull_cards",
+            data: {project_name :'<%=params[:project][:name]%>'}
+        });
+    });
+
+    $('#user_estimate_cards').click(function() {
+      $("#loader").show();
+        $.ajax({
+            url: "/projects/show_user_estimation",
             data: {project_name :'<%=params[:project][:name]%>'}
         });
     });

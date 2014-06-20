@@ -50,6 +50,13 @@ class ProjectsController < ApplicationController
     @show_card = Card.find(params[:id])
   end
 
+  def show_user_estimation
+  	project = Project.where(:mingle_name => params["project_name"]).first_or_create
+  	cards = project.cards.where("estimation is null")
+  	@est = EstimationDetail.where(:card_id=>cards.pluck(:id))
+  	respond_to(:js)    
+  end
+
   def update
     @card = Card.find(params[:id])
     estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
