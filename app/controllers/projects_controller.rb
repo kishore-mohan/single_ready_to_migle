@@ -64,6 +64,7 @@ class ProjectsController < ApplicationController
     estimation_detail = EstimationDetail.find_by_card_id_and_user_id(@card.id,@user.id)
     unless estimation_detail.blank?
       if estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
+        @card.update_attributes(:estimate => params[:card][:estimate]) if @user.is_admin
         flash[:notice] = "Estimation updated Successfully"
         redirect_to list_cards_projects_path(:id=>params[:id],:project=>{:name => @card.project.mingle_name})
       else
@@ -79,6 +80,7 @@ class ProjectsController < ApplicationController
       estimation_detail.comments = params[:comments]
       estimation_detail.save
       if estimation_detail.save
+        @card.update_attributes(:estimate => params[:card][:estimate]) if @user.is_admin
         flash[:notice] = "Estimation updated Successfully"
         redirect_to list_cards_projects_path(:id=>params[:id],:project=>{:name => @card.project.mingle_name})
       else
