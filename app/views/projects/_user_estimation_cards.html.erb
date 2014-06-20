@@ -12,7 +12,7 @@
     <tbody>
     <%@est.each do |e| %>
         <tr>
-          <td><%= link_to e.card_id,show_card_projects_path(:id=>e.card_id), :class => "btn btn-primary" %></td>
+          <td><%= link_to e.card.number,show_card_projects_path(:id=>e.card_id), :class => "btn btn-primary" %></td>
               <%@est.pluck(:user_id).uniq.each do |es|%>
                 <%if es == e.user_id%>
                   <td><%= link_to e.estimate,show_card_projects_path(:id=>e.card_id),

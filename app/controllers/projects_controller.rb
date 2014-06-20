@@ -34,6 +34,7 @@ class ProjectsController < ApplicationController
   end
 
   def list_cards
+    show_all_cards
   end
 
   def send_email
@@ -54,7 +55,7 @@ class ProjectsController < ApplicationController
   	project = Project.where(:mingle_name => params["project_name"]).first_or_create
   	cards = project.cards.where("estimation is null")
   	@est = EstimationDetail.where(:card_id=>cards.pluck(:id))
-  	respond_to(:js)    
+  	respond_to(:js)
   end
 
   def update
@@ -63,7 +64,7 @@ class ProjectsController < ApplicationController
     unless estimation_detail.blank?
       if estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to show_all_cards_projects_path(:id=>params[:id])
+        redirect_to list_cards_projects_path(:id=>params[:id],:project_name => @card.project.name)
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path
@@ -78,7 +79,7 @@ class ProjectsController < ApplicationController
       estimation_detail.save
       if estimation_detail.save
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to show_all_cards_projects_path(:id=>params[:id])
+        redirect_to list_cards_projects_path(:id=>params[:id],:project_name => @card.project.name)
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path
@@ -100,7 +101,7 @@ class ProjectsController < ApplicationController
 
   def show_all_cards
      card = Card.find(params[:id])
-     project = card.project
-    @db_cards = Card.where(:project_id=> project.id)
+     @project = card.project
+    @db_cards = Card.where(:project_id=> @project.id)
   end
 end
