@@ -1,5 +1,10 @@
-<h1>Projects</h1>
+<div class="span3"></div>
+<div class="span6">
+  <fieldset style="width:75%;">
+<h1>Projects</h1></br>
 <%= simple_form_for Project.new, :url =>projects_set_project_name_path,:method => 'post' do |f| %>
   <%=f.input :name, collection: @projects, as: :radio_buttons,
     input_html: { onclick:"document.getElementById('new_project').submit();" }, :label=> false %>  
 <%end%>
+</fieldset>
+</div>

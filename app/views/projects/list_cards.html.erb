@@ -23,6 +23,7 @@
 <script>
     $('#pull_cards').click(function() {
         $("#loader").show();
+        $('#remove_cards').hide();
         $.ajax({
             url: "/projects/pull_cards",
             data: {project_name :'<%=params[:project][:name] if params[:project]%>'}
@@ -31,6 +32,8 @@
 
     $('#user_estimate_cards').click(function() {
       $("#loader").show();
+      $('#remove_estimation_cards').hide();
+
         $.ajax({
             url: "/projects/show_user_estimation",
             data: {project_name :'<%=params[:project][:name] if params[:project]%>'}
