@@ -15,7 +15,7 @@
 <% if @user.is_admin %>
 <%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
   <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>
-  <%= f.input :url, :as => :hidden, :input_html => { :value => request.url} %>
+  <%= f.input :url, :as => :hidden, :input_html => { :value =>  "http://23.21.128.221:3000/projects"} %>
    <%= f.button :submit , 'Send Email Notification' %>
 <% end %>
 <% end %>
