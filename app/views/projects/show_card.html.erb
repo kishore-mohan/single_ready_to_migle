@@ -62,7 +62,7 @@
   <% end %>
 </div>
 
-<%= link_to "Back",show_all_cards_projects_path(:id => @show_card.id),:class => "btn btn-primary" %>
+<%= link_to "Back",list_cards_projects_path(:id => @show_card.id, :project_name => @show_card.project.name),:class => "btn btn-primary" %>
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>

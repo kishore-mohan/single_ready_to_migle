@@ -25,7 +25,7 @@
         $("#loader").show();
         $.ajax({
             url: "/projects/pull_cards",
-            data: {project_name :'<%=params[:project][:name]%>'}
+            data: {project_name :'<%=params[:project][:name] if params[:project]%>'}
         });
     });*/
 
@@ -33,7 +33,7 @@
       $("#loader").show();
         $.ajax({
             url: "/projects/show_user_estimation",
-            data: {project_name :'<%=params[:project][:name]%>'}
+            data: {project_name :'<%=params[:project][:name] if params[:project]%>'}
         });
     });
 </script>
