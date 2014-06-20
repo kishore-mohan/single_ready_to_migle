@@ -17,8 +17,13 @@
               <%@est.pluck(:user_id).uniq.each do |es|%>
               <% e= EstimationDetail.find_by_card_id_and_user_id(card.id, es)%>
                 <%unless e.blank? %>
-                  <td><%= link_to e.estimate,show_card_projects_path(:id=>e.card_id),
-                    :class => "btn btn-primary" %></td>
+                  <td>
+                    <%card_id = e.id%>
+                    <a id="popoverOption_<%=card_id%>" class="btn btn-primary" href="/show_cards?id=#{e.id}" data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
+                    </td>
+                    <script>
+                      $('#popoverOption_<%=e.id%>').popover({ trigger: "hover" });
+                    </script>
                 <%else%>
                   <td></td>
                 <%end%>         
@@ -28,3 +33,5 @@
     </tbody>
   </table>
 </div>
+
+

@@ -32,7 +32,7 @@
       </p>
       <p>
         <b>Judge your Estimation:</b>
-        <%= text_area :comments, "",:cols => "15",:rows=>"4" %>
+        <%= text_area :comments, "", :value=>EstimationDetail.find_by_card_id_and_user_id(@show_card.id,@user.id).try(:comments), :cols => "5",:rows=>"4" %>
       </p>
         </div>
 
