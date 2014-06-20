@@ -20,7 +20,7 @@
                 <%unless e.blank? %>
                   <td>
                     <%card_id = e.id%>
-                    <a id="popoverOption_<%=card_id%>" class="btn btn-primary" href="/projects/show_card?id=<%=card.id%>" data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
+                    <a id="popoverOption_<%=card_id%>" class="btn btn-primary"  data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
                     </td>
                     <script>
                       $('#popoverOption_<%=e.id%>').popover({ trigger: "hover" });

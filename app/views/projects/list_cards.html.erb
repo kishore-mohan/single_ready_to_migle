@@ -1,5 +1,5 @@
-<%if @user.is_admin %>
-  <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
+<%if @user.reload && @user.is_admin %>
+  <%@db_cards = @project.cards.where("estimation is null") %>
   <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" %>
   <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
   <%=button_tag "List User Estimated Cards", id: "user_estimate_cards", :class => "btn btn-primary" %>
@@ -12,9 +12,10 @@
 <%end%>
 
 
-<% if @user.is_admin %>
+<% if @user.reload && @user.is_admin %>
 <%= simple_form_for "email_notify", :url=> 'send_email',:method => :get do |f| %>
   <%= f.input :comment, as: :text , input_html: {style: 'height:100px; width:300px;'}  %>
+  <%= f.input :project_name, :as => :hidden, :input_html => { :value =>  params[:project][:name]} %>
   <%= f.input :url, :as => :hidden, :input_html => { :value =>  "http://23.21.128.221:3000/projects"} %>
    <%= f.button :submit , 'Send Email Notification' %>
 <% end %>

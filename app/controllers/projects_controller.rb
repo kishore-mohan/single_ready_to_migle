@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 
   def set_project_name
     @project = Project.where(:mingle_name => params["project"]["name"]).first_or_create    
-    @db_cards = Card.where(:project_id=> @project.id)  
+    @db_cards = @project.cards.where("estimation is null")
     LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).update_user
     render 'list_cards'
   end
@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
         card.project_id = project.id
         card.save
       end
-    @db_cards = Card.where(:project_id=> project.id)
+    @db_cards = project.cards.where("estimation is null")
     end
     respond_to(:js) 
   end
@@ -38,11 +38,9 @@ class ProjectsController < ApplicationController
   end
 
   def send_email
-    #todo need to send th users
-    #@users = LetsMingle.new(@user.email_id, @user.password, params["project"]["name"] ).get_users
     comment = params[:email_notify]["comment"]
     url     = params[:email_notify]["url"]
-    MingleMailer.welcome_email(comment,url)
+    MingleMailer.welcome_email(@user,comment,url,params["email_notify"]["project_name"])
     flash[:notice] = "Email Notification Sent"
     redirect_to root_path
   end
@@ -105,6 +103,6 @@ class ProjectsController < ApplicationController
   def show_all_cards
      card = Card.find(params[:id])
      @project = card.project
-    @db_cards = Card.where(:project_id=> @project.id)
+    @db_cards = @project.cards.where("estimation is null")
   end
 end

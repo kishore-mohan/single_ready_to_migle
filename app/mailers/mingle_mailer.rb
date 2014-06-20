@@ -1,9 +1,9 @@
 class MingleMailer < ActionMailer::Base
   default from: "cbletsmingle@gmail.com"
 
-   def welcome_email(comment,url)
+   def welcome_email(user,comment,url,name)
     @comment= comment
-    @user = "mansoor.elahi@careerbuilder.com"
+    @user = LetsMingle.new(user.email_id, user.password, name).get_users
     @url  = url
     mail(to: @user, subject: 'Welcome to My Awesome Site').deliver
    end
