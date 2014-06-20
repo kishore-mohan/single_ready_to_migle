@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 <%if @user.reload && @user.is_admin %>
   <%@db_cards = @project.cards.where("estimation is null") %>
   <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-primary" %>
-=======
-<%if @user.is_admin %>
-  <%@db_cards = Card.where(:project_id=> @project.id).where("estimation is null") %>
-  <%=button_tag "Pull Cards", id: "pull_cards", :class => "btn btn-info" %>
->>>>>>> 5b98efc9cf71cca367ae4943736072e9945ff871
   <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>
   <%=button_tag "List User Estimated Cards", id: "user_estimate_cards", :class => "btn btn-info" %>
   <%= image_tag("ajax-loader.gif", :style=>"display:none;", :id => "loader")%>

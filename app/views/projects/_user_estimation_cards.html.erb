@@ -20,12 +20,8 @@
               <% e= EstimationDetail.find_by_card_id_and_user_id(card.id, es)%>
                 <%unless e.blank? %>
                   <td>
-                    <%card_id = e.id%>
-<<<<<<< HEAD
-                    <a id="popoverOption_<%=card_id%>" class="btn btn-primary"  data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
-=======
-                    <a id="popoverOption_<%=card_id%>" class="btn btn-success" href="/projects/show_card?id=<%=card.id%>" data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
->>>>>>> 5b98efc9cf71cca367ae4943736072e9945ff871
+                    <%card_id = e.id%>      
+                    <a id="popoverOption_<%=card_id%>" class="btn btn-success" data-content="<%=e.comments %>" rel="popover" data-placement="bottom"><%= e.estimate%></a>
                     </td>
                     <script>
                       $('#popoverOption_<%=e.id%>').popover({ trigger: "hover" });
