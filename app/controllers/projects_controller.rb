@@ -55,6 +55,7 @@ class ProjectsController < ApplicationController
   	project = Project.where(:mingle_name => params["project_name"]).first_or_create
   	cards = project.cards.where("estimation is null")
   	@est = EstimationDetail.where(:card_id=>cards.pluck(:id))
+  	@uniq_card = @est.pluck(:card_id).uniq
   	respond_to(:js)
   end
 
@@ -64,7 +65,7 @@ class ProjectsController < ApplicationController
     unless estimation_detail.blank?
       if estimation_detail.update_attributes(:estimate => params[:card][:estimate],:comments => params[:comments])
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to list_cards_projects_path(:id=>params[:id],:project_name => @card.project.name)
+        redirect_to list_cards_projects_path(:id=>params[:id],:project=>{:name => @card.project.mingle_name})
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path
@@ -79,7 +80,7 @@ class ProjectsController < ApplicationController
       estimation_detail.save
       if estimation_detail.save
         flash[:notice] = "Estimation updated Successfully"
-        redirect_to list_cards_projects_path(:id=>params[:id],:project_name => @card.project.name)
+        redirect_to list_cards_projects_path(:id=>params[:id],:project=>{:name => @card.project.mingle_name})
       else
         flash[:notice] = "Some Problem is there. Please review the details"
         redirect_to show_card_projects_path

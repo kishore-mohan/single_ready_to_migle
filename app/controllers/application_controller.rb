@@ -22,7 +22,9 @@ class ApplicationController < ActionController::Base
   def maintain_session_and_user
     if session[:id]
       if @application_session = Session.find_by_id(session[:id])
-        @user = @application_session.user        
+        @user = @application_session.user 
+        @user.reload
+        @user       
       else
         session[:id] = nil
         redirect_to(root_url)

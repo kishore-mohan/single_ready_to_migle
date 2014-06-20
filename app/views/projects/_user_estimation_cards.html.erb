@@ -10,11 +10,13 @@
     </thead>
 
     <tbody>
-    <%@est.each do |e| %>
+    <%@uniq_card.each do |card_id| %>
+    <%card = Card.find(card_id)%>
         <tr>
-          <td><%= link_to e.card_id,show_card_projects_path(:id=>e.card_id), :class => "btn btn-primary" %></td>
+          <td><%= link_to card.number,show_card_projects_path(:id=>card.id), :class => "btn btn-primary" %></td>
               <%@est.pluck(:user_id).uniq.each do |es|%>
-                <%if es == e.user_id%>
+              <% e= EstimationDetail.find_by_card_id_and_user_id(card.id, es)%>
+                <%unless e.blank? %>
                   <td><%= link_to e.estimate,show_card_projects_path(:id=>e.card_id),
                     :class => "btn btn-primary" %></td>
                 <%else%>
